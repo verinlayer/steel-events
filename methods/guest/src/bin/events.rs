@@ -87,10 +87,10 @@ fn main() {
             let input: EthEvmInput = env::read();
             let env_next = input.into_env().with_chain_spec(&ETH_SEPOLIA_CHAIN_SPEC);
             // Verify that the previous EVM state is valid wrt the current EVM state.
-            // if i <= number_inputs - 2 {
-            //     // We initialize the SteelVerifier with the next state, to check the previous commitment.
-            //     SteelVerifier::new(&env_next).verify(env_pre.commitment());
-            // }
+            if i <= number_inputs - 2 {
+                // We initialize the SteelVerifier with the next state, to check the previous commitment.
+                SteelVerifier::new(&env_next).verify(env_pre.commitment());
+            }
             // SteelVerifier::new(&env_next).verify(env_pre.commitment());
             // Query all `Transfer` events of the USDT contract.
             let event = Event::new::<IERC20::Transfer>(&env_next);
