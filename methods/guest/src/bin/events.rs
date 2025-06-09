@@ -50,8 +50,6 @@ fn main() {
     let mut totalValue: U256 = U256::from(0);
 
     if number_inputs == 1 {
-        // log::info!("No inputs provided, exiting.");
-        // return;
         let input: EthEvmInput = env::read();
         let env = input.into_env().with_chain_spec(&ETH_SEPOLIA_CHAIN_SPEC);
         // let block_hash = latest_env.header().seal();
@@ -76,9 +74,7 @@ fn main() {
             let env_pre = input.into_env().with_chain_spec(&ETH_SEPOLIA_CHAIN_SPEC);
             let block_hash = env_pre.header().seal();
 
-            
             // Query all `Transfer` events of the USDT contract.
-            
             let event = Event::new::<IERC20::Transfer>(&env_pre);
             let logs = event.address(CONTRACT).query();
             let value = logs.iter().map(|log| log.data.value).sum::<U256>();
